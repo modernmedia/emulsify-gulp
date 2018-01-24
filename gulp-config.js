@@ -4,6 +4,7 @@
   const themeDir = './';
   const paths = {
     js: `${themeDir}/components/_patterns/**/*.js`,
+    vue: `${themeDir}/components/_patterns/**/*.vue`,
     dist_js: `${themeDir}/dist`,
     sass: themeDir,
     img: `${themeDir}/images`,

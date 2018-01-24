@@ -53,6 +53,14 @@ module.exports = (gulp, config) => {
       .pipe(gulp.dest(config.paths.dist_js));
   });
 
+  gulp.task('vue', () => {
+    gulp.src(config.paths.vue)
+      .pipe(sourcemaps.init())
+      .pipe(babel())
+      .pipe(sourcemaps.write(config.themeDir))
+      .pipe(gulp.dest(config.paths.dist_js));
+  });
+
   gulp.task('styleguide-scripts', () => {
     gulp.src(config.paths.js)
       .pipe(sourcemaps.init())
@@ -103,7 +111,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
+  gulp.task('serve', ['css', 'scripts', 'vue', 'styleguide-scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -126,6 +134,7 @@ module.exports = (gulp, config) => {
       });
     }
     gulp.watch(config.paths.js, ['scripts', 'styleguide-scripts']).on('change', browserSync.reload);
+    gulp.watch(config.paths.vue, ['vue']).on('change', browserSync.reload);
     gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']);
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
@@ -145,7 +154,7 @@ module.exports = (gulp, config) => {
   /**
    * Theme task declaration
    */
-  gulp.task('build', ['imagemin', 'clean', 'scripts', 'styleguide-scripts', 'css', 'icons']);
+  gulp.task('build', ['imagemin', 'clean', 'scripts', 'vue', 'styleguide-scripts', 'css', 'icons']);
 
   /**
    * Deploy

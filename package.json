@@ -7,8 +7,12 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "@babel/core": "^7.0.0-beta.38",
+    "@babel/preset-env": "^7.0.0-beta.38",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-jsx-event-modifiers": "^2.0.5",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.5.0",
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
     "del": "^3.0.0",
@@ -54,5 +58,17 @@
   "pre-commit": "lint",
   "engines": {
     "node": ">=6"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "ie >= 10"]
+        }
+      },
+      "vue"
+    ],
+    "plugins": ["jsx-event-modifiers", "transform-vue-jsx"]
   }
 }
